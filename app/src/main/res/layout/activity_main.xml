@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2200ff00"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/play_audio_slide_line_time_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="30dp"
+        android:background="#f7f8f9"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/play_audio_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="00:00"
+            android:textColor="#252525"
+            android:textSize="10dp" />
+
+        <com.chen.mynewaudiodemo.MySlideLineView
+            android:id="@+id/play_audio_slide_line"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp" />
+
+        <TextView
+            android:id="@+id/play_audio_total_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="00:00"
+            android:textColor="#252525"
+            android:textSize="10dp" />
+
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:id="@+id/play_audio_start_pause_iv"
+            android:layout_width="66dp"
+            android:layout_height="66dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_player_bofang" />
+
+        <ImageView
+            android:id="@+id/play_audio_hou_tui"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="50dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_player_houtui"
+            app:layout_constraintBottom_toBottomOf="@id/play_audio_start_pause_iv"
+            app:layout_constraintEnd_toStartOf="@id/play_audio_start_pause_iv"
+            app:layout_constraintTop_toTopOf="@id/play_audio_start_pause_iv" />
+
+        <ImageView
+            android:id="@+id/play_audio_kuai_jin"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="50dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_player_kuaijin"
+            app:layout_constraintBottom_toBottomOf="@id/play_audio_start_pause_iv"
+            app:layout_constraintStart_toEndOf="@id/play_audio_start_pause_iv"
+            app:layout_constraintTop_toTopOf="@id/play_audio_start_pause_iv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
