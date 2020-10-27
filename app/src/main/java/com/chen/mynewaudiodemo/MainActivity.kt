@@ -3,12 +3,11 @@ package com.chen.mynewaudiodemo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.imageResource
 
-class MainActivity : AppCompatActivity() , MySlideLineView.MySlideLinePercentageListener{
+class MainActivity : AppCompatActivity(), MySlideLineView.MySlideLinePercentageListener {
 
     private val PlayAudioStepCode: Int = 20201022
 
@@ -54,36 +53,69 @@ class MainActivity : AppCompatActivity() , MySlideLineView.MySlideLinePercentage
     //音频是否结束了
     private var audioIsFinish: Boolean = false
 
+
+    private var isCanClickPlay: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         initClickListener()
 
-        play_audio_start_pause_iv?.imageResource = R.mipmap.ic_player_zant
-
-        audioIsPlaying = true
-        audioIsFinish = false
-
         audioUrl = "https://...test.mp3"
 
-        SoundPlayer.getInstance().play(audioUrl)
+        play_audio_start_pause_iv?.imageResource = R.mipmap.ic_player_bofang
 
-        audioTotalTime = SoundPlayer.getInstance().getVoiceDuration()
+        audioIsPlaying = false
+        audioIsFinish = false
 
-        durationToSecondTime()
+        isCanClickPlay = false
 
-        play_audio_total_time?.text = handleTimeShow(totalSecondTime)
-        play_audio_time?.text = handleTimeShow(0)
+        audioTotalTime = 0
 
-        Log.e("时长（毫秒）：", "${SoundPlayer.getInstance().getVoiceDuration()}")
-
-        //传进去的是 秒
-        play_audio_slide_line?.setMaxValue(audioTotalTime / 1000f)
+        setViewStatus()
 
         play_audio_slide_line?.setMySlideLinePercentageListener(this)
 
-        mHandler.sendEmptyMessageDelayed(PlayAudioStepCode, DelayTime)
+        play_audio_title_tv?.postDelayed({
+
+            SoundPlayer.getInstance().play(audioUrl)
+            audioTotalTime = SoundPlayer.getInstance().getVoiceDuration()
+
+            audioIsPlaying = true
+            isCanClickPlay = true
+
+            setViewStatus()
+
+            durationToSecondTime()
+
+            play_audio_total_time?.text = handleTimeShow(totalSecondTime)
+            play_audio_time?.text = handleTimeShow(0)
+
+            //传进去的是 秒
+            play_audio_slide_line?.setMaxValue(audioTotalTime / 1000f)
+
+            mHandler.sendEmptyMessageDelayed(PlayAudioStepCode, DelayTime)
+
+
+        }, 1000)
+
+//        SoundPlayer.getInstance().play(audioUrl)
+//
+//        audioTotalTime = SoundPlayer.getInstance().getVoiceDuration()
+//
+//        durationToSecondTime()
+//
+//        play_audio_total_time?.text = handleTimeShow(totalSecondTime)
+//        play_audio_time?.text = handleTimeShow(0)
+//
+//        Log.e("时长（毫秒）：", "${SoundPlayer.getInstance().getVoiceDuration()}")
+//
+//        //传进去的是 秒
+//        play_audio_slide_line?.setMaxValue(audioTotalTime / 1000f)
+//
+//
+//        mHandler.sendEmptyMessageDelayed(PlayAudioStepCode, DelayTime)
 
 
     }
@@ -95,6 +127,10 @@ class MainActivity : AppCompatActivity() , MySlideLineView.MySlideLinePercentage
 
         //播放、暂停按钮
         play_audio_start_pause_iv?.setOnClickListener {
+
+            if (isCanClickPlay.not()) {
+                return@setOnClickListener
+            }
 
             if (audioIsPlaying) {
                 //音频正在播放，需要暂停
@@ -132,12 +168,20 @@ class MainActivity : AppCompatActivity() , MySlideLineView.MySlideLinePercentage
         //后退5秒
         play_audio_hou_tui?.setOnClickListener {
 
+            if (isCanClickPlay.not()) {
+                return@setOnClickListener
+            }
+
             handleHouTuiOrKuaiJin(false)
 
         }
 
         //快进5秒
         play_audio_kuai_jin?.setOnClickListener {
+
+            if (isCanClickPlay.not()) {
+                return@setOnClickListener
+            }
 
             handleHouTuiOrKuaiJin(true)
         }

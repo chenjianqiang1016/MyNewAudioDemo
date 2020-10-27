@@ -157,7 +157,11 @@ class MySlideLineView : LinearLayout {
 
         centerY = viewHeight / 2
 
-        step = lineLength / maxValue
+        step = if (maxValue != 0f) {
+            lineLength / maxValue
+        } else {
+            0f
+        }
 
     }
 
@@ -246,6 +250,11 @@ class MySlideLineView : LinearLayout {
 
     fun setMaxValue(maxV: Float) {
         maxValue = maxV
+        step = if (maxValue != 0f) {
+            lineLength / maxValue
+        } else {
+            0f
+        }
     }
 
     /**

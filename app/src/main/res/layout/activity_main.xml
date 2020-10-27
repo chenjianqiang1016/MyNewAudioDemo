@@ -8,6 +8,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/play_audio_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#33ff0000"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="标题"
+        android:textSize="25dp" />
+
     <LinearLayout
         android:id="@+id/play_audio_slide_line_time_ll"
         android:layout_width="match_parent"
